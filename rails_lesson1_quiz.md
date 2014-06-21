@@ -1,6 +1,9 @@
 # Rails Lesson 1 Quiz - Tealeaf Academy
 
 1. Why do they call it a relational database?
+        
+**Answer:** Because a relational database is made of several tables which **relate** to each other throgh foreign and primary keys. For example, if you have two tables `users` and `posts` the `posts` table can have a column called `user_id` which **relates** to the `user` tabl's `id` column. 
+
 
 2. What is SQL?
 
