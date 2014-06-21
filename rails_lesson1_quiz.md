@@ -11,7 +11,7 @@
 
 **3** There are two predominant views into a relational database. What are they, and how are they different?
 
-**Answer** The schema and data view. The schema is the structure of a database. The tables, the and the attributes of the tables. The data view is of the data in the tables. 
+**Answer** The schema and data view. The schema is the structure of a database with colmn names and data types of each colmn. The data view is of the data in the tables like an excell spreadsheet. 
 
 **4** In a table, what do we call the column that serves as the main identifier for a row of data? We're looking for the general database term, not the column name.
 
@@ -19,15 +19,15 @@
 
 **5** What is a foreign key, and how is it used?
 
-**Answer** A foreign key is a column that stores the id's from another table. This serves as areference to a row in another table.
+**Answer** A foreign key is a column that stores the id's from another table. This serves as a reference to another model. 
 
 **6** At a high level, describe the ActiveRecord pattern. This has nothing to do with Rails, but the actual pattern that ActiveRecord uses to perform its ORM duties.
 
-**Answer** 
+**Answer** ActiveRecord is used to access the database. Each class is related to a table in the database. Active record creates SQL for interacting with the database to perform CRUD actions. Each row of data in the tables in turned into an object by ActiveRecord.
 
 **7** If there's an ActiveRecord model called "CrazyMonkey", what should the table name be?
 
-**Answer** crazy_monkeys"
+**Answer** crazy_monkeys" . You can sue the tableize method in rails console to find the table name rails expects. "CrazyMonkey".tableize => crazy_monkeys
 
 **8** If I'm building a 1:M association between Project and Issue, what will the model associations and foreign key be?
 
@@ -40,8 +40,26 @@
         end
 
   * What do you expect the other model to be and what does database schema look like?
+      
+        class Animal
+          belongs_to :zoo
+        end
+  
+  **the database will have tables** 
+  `animals` with a primary key of `id` and foreign key of `zoo_id`
+  `zoos` with primary key of id
+
   * What are the methods that are now available to a zoo to call related to animals?
+  
+  `zoo.animalls` all of the animals
+  `zoo.animal.last` the last animal in the zoo
+  `zoo.animal.find 3` this finds the animal in the zoo with an id of 3
+  there are several more possibilities 
+
   * How do I create an animal called "jumpster" in a zoo called "San Diego Zoo"?
+  
+        $ zoo = Zoo.create(name: "Metro Zoo") => sets primary key of this zoo to 1
+        $ animal = Animal.create(name: "jumpster", zoo_id: 1)
 
 **Answer** 
 
