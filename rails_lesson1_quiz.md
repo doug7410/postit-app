@@ -51,10 +51,10 @@
 
   * What are the methods that are now available to a zoo to call related to animals?
   
-  `zoo.animalls` all of the animals
-  `zoo.animal.last` the last animal in the zoo
-  `zoo.animal.find 3` this finds the animal in the zoo with an id of 3
-  there are several more possibilities 
+    * `zoo.animalls` all of the animals
+    * `zoo.animal.last` the last animal in the zoo
+    * `zoo.animal.find 3` this finds the animal in the zoo with an id of 3
+    * there are several more possibilities 
 
   * How do I create an animal called "jumpster" in a zoo called "San Diego Zoo"?
   
