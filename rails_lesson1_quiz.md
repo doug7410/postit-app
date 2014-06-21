@@ -61,23 +61,34 @@
         $ zoo = Zoo.create(name: "Metro Zoo") => sets primary key of this zoo to 1
         $ animal = Animal.create(name: "jumpster", zoo_id: 1)
 
-**Answer** 
 
 **10** What is mass assignment? What's the non-mass assignment way of setting values?
 
-**Answer** Mass assignment is when you pass values directly to a class and creates a new object. You can set object values by passing them directly to the object. This is not mass assignment. 
+**Answer**  Mass assignment lets us set multiple values to attributes with a single assignment operator
+
+Mass assignment
+        Post.create(tite: "hello!", url: "www.fake.com")
+        
+Non-mass assignment
+        post = Post.new
+        post.title = "Hello!"
+        post.url = "www.fake.com"
 
 **11** What does this code do? Animal.first
 
-**Answer** Selects the first Animal object from the database in the Animal model
+**Answer** Returns an object the first row in the animals table.
 
 **12** If I have a table called "animals" with columns called "name", and a model called Animal, how do I instantiate an animal object with name set to "Joe". Which methods makes sure it saves to the database?
 
-**Answer** Animal.create(name: "Joe")
+**Answer** 
+        animal = Animal.create(name: "Joe") - this saves to the database instantly
+        
+        animal = Animal.new(name: "Joe") - this needs to be saved to the database
+        animal.save - this saves the animal object to the database
 
 **13** How does a M:M association work at the database level?
 
-**Answer** There are two table that can have many instances of each other. For example: a student can have many classes, and a class can have many students.
+**Answer** We use a join table. Both of the primary models in the M:M have a 1:M association with the join table. By useing `has_many :through` , we are able to create an inderect M:M associatoin with the primary models
 
 **14** What are the two ways to support a M:M association at the ActiveRecord model level? Pros and cons of each approach?
 
@@ -86,11 +97,44 @@
 2) hmt : has many through
 
 Pros of 1) You don't need to create a seperate join model. 
-Cons of 1) can't put additional attributes (columns) on association
+Cons of 1) can't put additional attributes (columns) on association, less flexible
 
-Pros of 2) can put additional attributes (columns) on association
+Pros of 2) can put additional attributes (columns) on association, more flexible
 Cons of 2) has a join model
 
 **15** Suppose we have a User model and a Group model, and we have a M:M association all set up. How do we associate the two?
 
-**Answer** `user.groups` `group.users`
+**Answer** 
+
+Use a join model and table. UserGroup and user_groups
+
+`User` model
+
+        class User < ActiveRecord::Base
+          has_many :user_groups
+          has_many :groups, through: :user_groups
+        end
+
+`UserGroup` model
+
+        class UserGroup < ActiveRecord::Base
+          belongs_to :group
+          belongs_to :user
+        end
+
+`Group` model
+
+        class Group < ActiveRecord::Base
+          has_many :user_groups
+          has_many :users, through: :user_groups
+        end
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
