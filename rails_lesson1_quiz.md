@@ -18,13 +18,13 @@
 
 9. Given this code
 
-    class Zoo < ActiveRecord::Base
-        has_many :animals
-    end
+        class Zoo < ActiveRecord::Base
+            has_many :animals
+        end
 
-  * What do you expect the other model to be and what does database schema look like?
-  * What are the methods that are now available to a zoo to call related to animals?
-  * How do I create an animal called "jumpster" in a zoo called "San Diego Zoo"?
+    * What do you expect the other model to be and what does database schema look like?
+    * What are the methods that are now available to a zoo to call related to animals?
+    * How do I create an animal called "jumpster" in a zoo called "San Diego Zoo"?
 
 10. What is mass assignment? What's the non-mass assignment way of setting values?
 
