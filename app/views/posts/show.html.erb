@@ -1,17 +1,51 @@
+<!--<p class="pull-right">-->
+<!--  [<%= link_to "Remove", @post, method: :delete, data: { confirm: "Are you sure?" } %>]-->
+<!--</p>-->
+
+<p class="pull-right">
+  [<%= link_to 'edit this post', edit_post_path(@post) %>]
+</p>
+
 <p>
   <%= render @post.categories %>
 </p>
 
 <%= render 'shared/content_title', title: @post.title %>
 
+<p>Link: <%= link_to @post.url, format_link(@post.url) %> </p>
+
 <p>
   <%= @post.description %>
 </p>
 
-<p>Here is the link <%= @post.url %> </p>
 
 <% if @post.creator %>
 <p>Created by <%= @post.creator.username %> </p>
 <% end %>
 
-<%= link_to 'go back', posts_path %>
+<%= link_to 'go back', posts_path %> 
+<hr>
+
+<!-- add comment form -->
+<%= render 'shared/errors', object: @comment %>
+<%= form_for [@post, @comment] do |f| %>
+  <%= f.label :body %>
+  <%= f.text_area :body %> <br>
+  <%= f.submit 'Add Comment', class: 'btn btn-primary ' %>
+<% end %>
+
+<!-- list comments -->
+<% @post.comments.each do |comment|  %>
+  <div class="row">
+    <div class="well span6">
+      <em><p>"<%= comment.body %>"</p></em>
+      <p>
+        <% if comment.creator %>
+          <span class="quiet">Posted by </span><%= comment.creator.username %>
+        <% end %>
+        <small>on <%= format_datetime(comment.created_at) %></small>
+      </p>
+    </div>
+  </div>
+<% end %>
+  

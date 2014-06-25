@@ -12,6 +12,6 @@ PostitTemplate::Application.routes.draw do
     resources :comments, only: [:create]
   end
 
-  get '/test', to: 'test#index'
+  resources :categories, only: [:new, :create, :show]
 
 end
