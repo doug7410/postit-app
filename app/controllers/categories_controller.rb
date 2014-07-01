@@ -1,8 +1,5 @@
 class CategoriesController < ApplicationController
-
-  def index
-    @categories = Category.all
-  end
+  before_action :require_user, except: [:show]
 
   def show
     @category = Category.find(params[:id])

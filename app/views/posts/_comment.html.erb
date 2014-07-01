@@ -1,0 +1,14 @@
+<% object.comments.each do |comment|  %>
+  <div class="row">
+    <div class="well span6">
+      <em><p>"<%= comment.body %>"</p></em>
+      <p>
+        <% if comment.creator %>
+          <span class="quiet">Posted by </span><%= comment.creator.username %>
+        <% end %>
+        <small>on <%= format_datetime(comment.created_at) %></small>
+      </p>
+    </div>
+  </div>
+<% end %>
+  

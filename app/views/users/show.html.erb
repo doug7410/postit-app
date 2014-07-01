@@ -1,0 +1,27 @@
+<%= render 'shared/content_title', title: "User Profile: #{current_user.username}" %>
+
+<div class="well">
+  <p><strong>Username:</strong> <%= current_user.username %></p>
+</div>
+
+<div>
+  <strong><%= current_user.username %>'s activity:</strong>
+</div>
+
+
+
+
+
+<div>
+<h5>Posts</h5>
+<% current_user.posts.each do |post| %>
+  <%= render 'posts/post', post: post %>
+<% end %>
+</div>
+
+<div>
+<h5>Comments</h5>
+
+  <%= render 'posts/comment', object: current_user %>
+
+</div>

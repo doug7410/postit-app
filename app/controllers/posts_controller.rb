@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :find_post, only: [:show, :edit, :update]
+  before_action :require_user, except: [:index, :show]
 
   def index
     @posts = Post.all
@@ -18,6 +19,7 @@ class PostsController < ApplicationController
 
     @post = Post.new(post_params)
     @categories = Category.all
+    @post.creator = current_user
     if @post.save
       flash[:notice] = "Your post was created"
       redirect_to posts_path

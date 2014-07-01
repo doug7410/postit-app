@@ -1,8 +1,11 @@
 class CommentsController < ApplicationController
+
+  before_action :require_user
+
   def create
     @post = Post.find(params[:post_id])
     @comment = Comment.new(params.require(:comment).permit(:body))
-    @comment.creator = User.find(1)
+    @comment.creator = current_user
     @comment.post_id = params[:post_id]
     
 
