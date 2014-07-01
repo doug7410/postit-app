@@ -5,7 +5,11 @@
        <%= f.text_field :username %>
     </div>
     <div class="control-group">
-      <%= f.label :password %>
+      <%= label_tag :old_password %>
+       <%= password_field_tag :old_password %>
+    </div>
+    <div class="control-group">
+      <%= label_tag :new_password %>
        <%= f.password_field :password %>
     </div>
     <%= f.submit @user.new_record? ? 'Register' : 'Update Profile' , class: 'btn btn-confirm' %>

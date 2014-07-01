@@ -27,13 +27,26 @@ class UsersController < ApplicationController
 
   def update
 
-    if @user.update(user_params)
-      flash[:notice] = "Your profile was successfully updated."
-      redirect_to user_path(@user)
-    else
-      render 'edit'
-    end
+    if params[:user][:password] != "" #if a password was entered
+      
+        if old_password_match? && @user.update(user_params) 
+          flash[:notice] = "Your profile was successfully updated."
+          redirect_to user_path(@user)
+        else
+          @user.errors[:old_password] = "did not match." if !old_password_match?
+          render 'edit'
+        end 
 
+    else #if the password was left blank
+
+      if @user.update(user_params)
+        flash[:notice] = "Your profile was successfully updated."
+        redirect_to user_path(@user)
+      else
+        render 'edit'
+      end
+
+    end
   end
 
   private
@@ -51,6 +64,10 @@ class UsersController < ApplicationController
       flash[:error] = "you're not allowed to do that"
       redirect_to root_path
     end
+  end
+
+  def old_password_match?
+    !!@user.authenticate(params[:old_password])
   end
 
 end
