@@ -7,7 +7,7 @@
     <p><%= post.description %></p>
     <p>
       <% if post.creator %>
-        <span class="quiet">Posted by </span><%= post.creator.username %>
+        <span class="quiet">Posted by </span><%= link_to post.creator.username, user_path(post.creator) %>
       <% end %>
       <small>on <%= format_datetime(post.created_at) %></small>
     </p>

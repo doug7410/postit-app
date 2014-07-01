@@ -1,10 +1,17 @@
+<% show_post ||= false %>
+
 <% object.comments.each do |comment|  %>
   <div class="row">
     <div class="well span6">
-      <em><p>"<%= comment.body %>"</p></em>
+      <em>
+        "<%= comment.body %>"
+        <% if show_post %>
+        on <%= link_to comment.post.title , post_path(comment.post) %>
+        <% end %>
+      </em>
       <p>
         <% if comment.creator %>
-          <span class="quiet">Posted by </span><%= comment.creator.username %>
+          <span class="quiet">Posted by </span><%= link_to comment.creator.username, user_path(comment.creator) %>
         <% end %>
         <small>on <%= format_datetime(comment.created_at) %></small>
       </p>

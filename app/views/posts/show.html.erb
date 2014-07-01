@@ -2,7 +2,7 @@
 <!--  [<%= link_to "Remove", @post, method: :delete, data: { confirm: "Are you sure?" } %>]-->
 <!--</p>-->
 
-<% if logged_in? %>
+<% if logged_in? && @post.creator == current_user %>
   <p class="pull-right">
     [<%= link_to 'edit this post', edit_post_path(@post) %>]
   </p>
@@ -22,7 +22,7 @@
 
 
 <% if @post.creator %>
-<p>Created by <%= @post.creator.username %> </p>
+<p>Created by <%= link_to @post.creator.username, user_path(@post.creator) %> </p>
 <% end %>
 
 <%= link_to 'go back', posts_path %> 

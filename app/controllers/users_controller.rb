@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :find_user, only: [:edit, :update]
+  before_action :find_user, only: [:edit, :update, :show]
+  before_action :require_user, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -8,7 +9,6 @@ class UsersController < ApplicationController
 
   def show
 
-    
   end
 
   def create
@@ -43,9 +43,14 @@ class UsersController < ApplicationController
   end
 
   def find_user
-    @user = User.find(session[:user_id])
+    @user = User.find(params[:id])
   end
 
-
+  def require_user
+    if current_user != @user
+      flash[:error] = "you're not allowed to do that"
+      redirect_to root_path
+    end
+  end
 
 end
