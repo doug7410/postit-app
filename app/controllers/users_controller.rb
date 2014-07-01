@@ -29,13 +29,17 @@ class UsersController < ApplicationController
 
     if params[:user][:password] != "" #if a password was entered
       
-        if old_password_match? && @user.update(user_params) 
-          flash[:notice] = "Your profile was successfully updated."
-          redirect_to user_path(@user)
+        if old_password_match?
+          if @user.update(user_params) 
+            flash[:notice] = "Your profile was successfully updated."
+            redirect_to user_path(@user)
+          else
+            render 'edit'
+          end  
         else
-          @user.errors[:old_password] = "did not match." if !old_password_match?
+          @user.errors[:old_password] = "did not match."
           render 'edit'
-        end 
+        end
 
     else #if the password was left blank
 
