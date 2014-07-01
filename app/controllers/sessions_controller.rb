@@ -5,7 +5,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.where(username: params[:username]).first
+    user = User.find(:first, :conditions => ["lower(username) = ?", params[:username].downcase]) 
+   
 
     if user && user.authenticate(params[:password]) 
       session[:user_id] = user.id
