@@ -7,9 +7,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def show
-
-  end
+  def show; end
 
   def create
     @user = User.new(user_params)
@@ -25,32 +23,15 @@ class UsersController < ApplicationController
 
   def edit; end
 
-  def update
+  def update       
+    @user.old_password = params[:old_password]
 
-    if params[:user][:password] != "" #if a password was entered
-      
-        if old_password_match?
-          if @user.update(user_params) 
-            flash[:notice] = "Your profile was successfully updated."
-            redirect_to user_path(@user)
-          else
-            render 'edit'
-          end  
-        else
-          @user.errors[:old_password] = "did not match."
-          render 'edit'
-        end
-
-    else #if the password was left blank
-
-      if @user.update(user_params)
-        flash[:notice] = "Your profile was successfully updated."
-        redirect_to user_path(@user)
-      else
-        render 'edit'
-      end
-
-    end
+    if @user.update(user_params) 
+      flash[:notice] = "Your profile was successfully updated."
+      redirect_to user_path(@user)
+    else
+      render 'edit'
+    end  
   end
 
   private
@@ -70,8 +51,5 @@ class UsersController < ApplicationController
     end
   end
 
-  def old_password_match?
-    !!@user.authenticate(params[:old_password])
-  end
 
 end
