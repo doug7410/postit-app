@@ -4,10 +4,12 @@
       <%= f.label :username %>
        <%= f.text_field :username %>
     </div>
+    <% if User.any? %>
     <div class="control-group">
       <%= label_tag :old_password %>
        <%= password_field_tag :old_password %>
     </div>
+    <% end %>
     <div class="control-group">
       <%= label_tag :new_password %>
        <%= f.password_field :password %>

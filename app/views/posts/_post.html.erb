@@ -5,7 +5,7 @@
         <i class="icon-arrow-up"></i>
       <% end %>
     <% end %>  
-      <div><%= post.total_votes %></div>
+      <div><%= post.total_votes %> votes</div>
     <% if logged_in? %>  
       <%= link_to vote_post_path(post, vote: false), method: 'post'  do %>
         <i class="icon-arrow-down"></i>

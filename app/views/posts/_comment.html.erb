@@ -3,19 +3,23 @@
 
 <% comments.each do |comment|  %>
   <div class="row">
+
+    <!-- votes -->
     <div class="span0 well text-center">
       <% if logged_in? %>
         <%= link_to vote_post_comment_path( comment.post, comment, vote: true), method: 'post'  do %>
           <i class="icon-arrow-up"></i>
         <% end %>
       <% end %>
-      <div><%= comment.total_votes %></div>
+      <div><%= comment.total_votes %> votes</div>
       <% if logged_in? %>
         <%= link_to vote_post_comment_path( comment.post, comment, vote: false), method: 'post'  do %>
           <i class="icon-arrow-down"></i>
         <% end %>
       <% end %>  
     </div>
+
+    <!-- comments -->
     <div class="well span6">
       <em>
         "<%= comment.body %>"

@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
 
-  before_action :require_user, except: [:vote]
+  before_action :require_user
   before_action :find_post
 
   def create
@@ -18,17 +18,12 @@ class CommentsController < ApplicationController
   end
 
   def vote
-    @vote = Vote.create(voteable: @post.comments.find(params[:id]), creator: current_user, vote: params[:vote])
-
-    if @vote.valid?
-      @vote.save
+    comment =  Comment.find(params[:id])
+    vote = Vote.create(voteable: comment, creator: current_user, vote: params[:vote])
+    if vote.valid?
       flash[:notice] = "Your vote was counted"
     else
-      if logged_in?
         flash[:error] = "You can only vote on this once."
-      else
-        flash[:error] = "Please log in to vote."
-      end
     end
 
     redirect_to :back
