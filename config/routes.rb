@@ -13,8 +13,17 @@ PostitTemplate::Application.routes.draw do
   #get '/posts/:id/edit', to: 'posts#edit'
   #patch '/posts/:id', to: 'posts#update'
   
-  resources :posts do
-    resources :comments, only: [:create]
+  resources :posts, exept: [:destroy] do
+    member do 
+      post :vote, only: [:create] #this creates a rout like /post/12/vote
+    end
+
+    resources :comments, only: [:create] do
+      member do
+        post :vote, only: [:create] #this creates a rout like /post/3/comment/9/vote
+      end
+    end
+
   end
 
   resources :categories, only: [:new, :create, :show]

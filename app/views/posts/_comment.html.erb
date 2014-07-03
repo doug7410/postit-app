@@ -2,6 +2,17 @@
 
 <% object.comments.each do |comment|  %>
   <div class="row">
+    <div class="span0 well text-center">
+      <%= link_to vote_post_comment_path(comment, vote: true), method: 'post'  do %>
+      <i class="icon-arrow-up"></i>
+    <% end %>
+    <div>
+      0
+    </div>
+      <%= link_to vote_post_path(comment, vote: false), method: 'post'  do %>
+      <i class="icon-arrow-down"></i>
+    <% end %>
+    </div>
     <div class="well span6">
       <em>
         "<%= comment.body %>"

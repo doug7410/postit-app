@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
-  before_action :find_post, only: [:show, :edit, :update]
+  before_action :find_post, only: [:show, :edit, :update, :vote]
   before_action :require_user, except: [:index, :show]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.sort_by { |x| x.total_votes }.reverse
   end
   
   def show
@@ -27,6 +27,20 @@ class PostsController < ApplicationController
       render 'new'
     end
 
+  end
+
+  def vote
+    @vote = Vote.new(voteable: @post, creator: current_user, vote: params[:vote])
+
+    if @vote.valid?
+      @vote.save
+      flash[:notice] = "Your vote was counted for #{@post.title}."
+    else
+      flash[:error] = "Your vote was not counted."
+    end
+
+    redirect_to :back
+    
   end
 
   def edit
