@@ -4,14 +4,14 @@
       <%= f.label :username %>
        <%= f.text_field :username %>
     </div>
-    <% if User.any? %>
+    <% if !@user.new_record? %>
     <div class="control-group">
       <%= label_tag :old_password %>
        <%= password_field_tag :old_password %>
     </div>
     <% end %>
     <div class="control-group">
-      <%= label_tag :new_password %>
+      <%= label_tag !@user.new_record? ? :new_password : :password %> 
        <%= f.password_field :password %>
     </div>
     <%= f.submit @user.new_record? ? 'Register' : 'Update Profile' , class: 'btn btn-confirm' %>
