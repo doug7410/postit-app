@@ -34,6 +34,7 @@ Answer: Passwords are saved using the `has_secure_password` method
 * the users table needs a column called 'password_digest'. The column need to be of type string. 
 * the gem 'bcrypt-ruby' must be installed and added to the Gemfile
 * when a password is saved you use the `password` setter method. When creating a new user, mass assignment might look something like this
+      
       User.new(username: "Steve0", password: "abc123")
 
 ####5) What should we do if we have a method that is used in both controllers and views?
