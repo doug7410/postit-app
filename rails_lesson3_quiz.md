@@ -20,13 +20,13 @@ Answer: Add to the error messages on the object being displayed in the view temp
         render new_post_path
       end
 
-EDIT: After reading the solution: When rendering and you want to quickly display a message on the view template, we can use flash.now. Whatever message you pass to flash.now will be displayed in the same render request.
-
 In this example, if @post.save doesn't work there will be errors added to the @post object and when `new_post_path` is rendered, the view will be able to access them on the @post object like this
       
       <% @post.errors.full_messages.each do |msg| %>
       <li><%= msg %> </li>
       <% end %>
+
+**EDIT: After reading the solution:** When rendering and you want to quickly display a message on the view template, we can use flash.now. Whatever message you pass to `flash.now` will be displayed in the same render request.      
 
 ####4) Explain how we should save passwords to the database.
 
