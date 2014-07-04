@@ -35,7 +35,7 @@ Answer: Passwords are saved using the `has_secure_password` method
 * the gem 'bcrypt-ruby' must be installed and added to the Gemfile
 * when a password is saved you use the `password` setter method. When creating a new user, mass assignment might look something like this
       
-      User.new(username: "Steve0", password: "abc123")
+        User.new(username: "Steve0", password: "abc123")
 
 ####5) What should we do if we have a method that is used in both controllers and views?
 
@@ -57,24 +57,24 @@ There are two things we can do.
 * First, hide the new comment form in the view template if the user is not logged in. You can do this by creating a method that returns a boolean based on whether the the pserson is logged in. The view template can then show or hide the new comment form based on the result of this method.
 * The second thing is to create a before filter in the controller. Here is an example
       
-      class CommentsController < ApplicationController
+        class CommentsController < ApplicationController
 
-        before_action :require_user
+          before_action :require_user
 
-        def create
-          @post = Post.find(params[:post_id])
-          @comment = Comment.new(params.require(:comment).permit(:body))
-          @comment.creator = current_user
-          @comment.post_id = params[:post_id]
-          
-          if @comment.save
-            flash[:notice] = "Your comment was created."
-            redirect_to post_path(@post)
-          else
-            render 'posts/show'
+          def create
+            @post = Post.find(params[:post_id])
+            @comment = Comment.new(params.require(:comment).permit(:body))
+            @comment.creator = current_user
+            @comment.post_id = params[:post_id]
+            
+            if @comment.save
+              flash[:notice] = "Your comment was created."
+              redirect_to post_path(@post)
+            else
+              render 'posts/show'
+            end
           end
         end
-      end
 
 In this example, `:require_user` is a method set in the `ApplicationController` class. `before_action` makes the `require_user` method run before all other code in any of the actions in the `CommentsController` That `require_user` method looks like this:
       
