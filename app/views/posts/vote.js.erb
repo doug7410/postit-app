@@ -1,4 +1,4 @@
-<% if @error %>
+<% if !@vote.valid? %>
   alert('You can only vote on this once')
 <% else %>
   $('#post_<%= @object.id %>_votes').html('<%= @object.total_votes %>')
