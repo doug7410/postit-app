@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :votes
 
+  before_save :generate_slug
+
   has_secure_password validations: false
   validates :username, presence: :true, uniqueness: true
   validates :password, presence: :true, length: {minimum: 6}, on: :create
@@ -24,6 +26,15 @@ class User < ActiveRecord::Base
 
   def new_password_present?
     self.password.present?
+  end
+
+  def generate_slug
+    slug = self.username.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+    self.slug = slug
+  end
+
+  def to_param
+    self.slug
   end
 
 end
