@@ -1,6 +1,12 @@
+
 <% if !@vote.valid? %>
   alert('You can only vote on this once');
 <% else %>
+<% if @object.respond_to?('slug') %>
   $('#post_<%= @object.slug %>_votes').html('<%= @object.total_votes %>');
+<% else %>
+  $('#comment_<%= @object.id %>_votes').html('<%= @object.total_votes %>');
+<% end %>
+
   alert('Your vote has been counted');
 <% end %>  

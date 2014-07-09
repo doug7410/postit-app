@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
         end
         redirect_to :back
       end  
-      format.js {render 'posts/vote'}
+      format.js {render 'shared/vote'}
     end
 
   end

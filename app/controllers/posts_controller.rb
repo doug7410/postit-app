@@ -42,7 +42,7 @@ class PostsController < ApplicationController
           end
           redirect_to :back
         end  
-        format.js
+        format.js {render 'shared/vote'}
       end
     
   end
