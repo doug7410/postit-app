@@ -1,4 +1,4 @@
-class PostsController < ApplicationController
+pclass PostsController < ApplicationController
   before_action :find_post, only: [:show, :edit, :update, :vote]
   before_action :require_user, except: [:index, :show, :votes]
 
