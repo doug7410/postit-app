@@ -13,4 +13,8 @@ class Post < ActiveRecord::Base
   validates :url, presence: :true, uniqueness: true
   validates :description, presence: :true
 
+  def slug_column
+    self.title
+  end
+
 end

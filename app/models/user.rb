@@ -14,7 +14,9 @@ class User < ActiveRecord::Base
   validate :old_password_matches?, on: :update, if: :new_password_present?
   validates :password, presence: :true, length: {minimum: 6}, on: :update, allow_blank: true
 
-
+  def slug_column
+    self.username
+  end
 
   def old_password_matches?
     errors.add(:base, "Old password did not match.") if current_password != self.old_password

@@ -1,14 +1,12 @@
 module Slugable
     extend ActiveSupport::Concern
 
-
-    
     included do
       before_save :generate_slug!
     end
 
     def generate_slug!
-      the_slug = to_slug(slug_text) #turn the current post title into a slug
+      the_slug = to_slug(self.slug_column) #turn the current post title into a slug
       
       object = self.class.find_by slug: the_slug #try to find the object with the slug we just created
       count = 2
@@ -38,16 +36,6 @@ module Slugable
 
     def to_param
       self.slug
-    end
-
-    def slug_text
-      if self.class.name == 'Post'
-        self.title
-      elsif self.class.name == 'Category'
-        self.name
-      elsif self.class.name == 'User'
-        self.username
-      end
     end
 
 end
