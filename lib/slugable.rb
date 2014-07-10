@@ -3,10 +3,11 @@ module Slugable
 
     included do
       before_save :generate_slug!
+      class_attribute :slug_column
     end
 
     def generate_slug!
-      the_slug = to_slug(self.slug_column) #turn the current post title into a slug
+      the_slug = to_slug(self.send(self.class.slug_column.to_sym)) #turn the current post title into a slug
       
       object = self.class.find_by slug: the_slug #try to find the object with the slug we just created
       count = 2
@@ -36,6 +37,12 @@ module Slugable
 
     def to_param
       self.slug
+    end
+
+    module ClassMethods
+      def sluggable_column(column_name)
+        self.slug_column = column_name
+      end
     end
 
 end
