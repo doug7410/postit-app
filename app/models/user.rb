@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
   attr_accessor :old_password
 
+  include Slugable
+
   has_many :posts
   has_many :comments
   has_many :votes
-
-  before_save :generate_slug!
 
   has_secure_password validations: false
   validates :username, presence: :true, uniqueness: true
@@ -54,10 +54,6 @@ class User < ActiveRecord::Base
     str.gsub!(/\s*[^A-Za-z0-9]\s*/ , '-')
     str.gsub!(/-+/, '-')
     str.downcase
-  end
-
-  def to_param
-    self.slug
   end
 
 end
