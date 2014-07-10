@@ -28,5 +28,9 @@ class User < ActiveRecord::Base
     self.password.present?
   end
 
+  def admin?
+    self.role == 'admin'
+  end
+
 end
 

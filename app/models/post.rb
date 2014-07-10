@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
 
-  include Voteable
+  include VoteableDoug
   include Slugable
 
   belongs_to :user
