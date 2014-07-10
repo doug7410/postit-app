@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :find_post, only: [:show, :edit, :update, :vote]
   before_action :require_user, except: [:index, :show, :votes]
+  before_action :current_user,  only: [:edit, :update]
 
   def index
     @posts = Post.all.sort_by { |x| x.total_votes }.reverse
@@ -49,15 +50,24 @@ class PostsController < ApplicationController
 
   def edit
     @categories = Category.all
+
+    if is_post_creator_or_admin?
+      render :edit
+    else
+      access_denied
+    end
   end
 
   def update
-
-    if @post.update(post_params)
-      flash[:notice] = "The post was successfully updated"
-      redirect_to post_path(@post)
+    if is_post_creator_or_admin?
+      if @post.update(post_params)
+        flash[:notice] = "The post was successfully updated"
+        redirect_to post_path(@post)
+      else
+        render 'edit'
+      end
     else
-      render 'edit'
+      access_denied
     end
 
   end
