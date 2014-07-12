@@ -17,6 +17,9 @@
       <%= render post.categories %>
     </p>
     <h4><%= link_to post.title, format_link(post.url) %></h4>
+    <p>
+      <%= image_tag post.post_image, class: 'img-polaroid img-small' %>
+    </p>
     <p><%= post.description %></p>
     <p>
       <% if post.creator %>

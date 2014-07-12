@@ -15,6 +15,9 @@ gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '=3.0.1'
 gem 'pry-debugger'
 gem 'voteable_doug'
+gem 'sluggable_doug'
+gem 'metainspector'
+gem 'jquery-turbolinks'
 
 group :doc do
   gem 'sdoc', require: false

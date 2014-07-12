@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessor :old_password
 
-  include Slugable
+  include SluggableDoug
 
   has_many :posts
   has_many :comments

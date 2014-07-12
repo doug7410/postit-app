@@ -46,3 +46,38 @@ div.comment_votes {
   margin: 0 5px 0 0;
 }
 
+.img-polaroid{
+  max-width: 500px;
+}
+
+.img-small{
+  max-width: 150px;
+  max-height: 150px;
+  float: right;
+}
+
+#image_choices{
+  background-color: #FFF;
+  padding: 0 15px 15px 15px;
+  border-radius: 3px;
+  border: solid 1px #CCC;
+  margin: 0 0 15px 0; 
+  display: none;
+}
+
+.choose_img_thumbs li, #post_image {
+    display: inline-block;
+    padding: 5px;
+    border: solid 1px #CCC;
+    border-radius: 3px;
+    margin: 5px;
+    max-width: 120px;
+}
+#post_image {
+    display: none;
+    padding: 5px;
+    border: solid 1px #CCC;
+    border-radius: 3px;
+    margin: 5px;
+    max-width: 250px;
+}

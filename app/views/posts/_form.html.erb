@@ -2,6 +2,7 @@
 
 <%= render 'shared/errors', object: @post %>
 <%= form_for @post do |f| %>
+  <%=  f.hidden_field :post_image %>
 <div class="control-group">
   <%= f.label :title %>
   <%= f.text_field :title %>
@@ -9,8 +10,16 @@
 <div class="control-group">
   <%= f.label :url %>
   <%= f.text_field :url %>
+  <%= link_to 'Choose Post Image', post_image_path, remote: true, method: 'post', class: 'btn btn-primary', id: 'choose_img_btn' %>
 </div>
- <div class="control-group"> 
+<div id="image_choices" >
+  <h4>Choose an image to go with this post.</h4>
+  <div id="images_container"></div>
+</div>
+<div id="post_image">
+  <%= image_tag @post.post_image  %>
+</div
+> <div class="control-group"> 
   <%= f.label :description %>
   <%= f.text_area :description, rows: 5 %>
 </div>

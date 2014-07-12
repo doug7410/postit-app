@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :find_post, only: [:show, :edit, :update, :vote]
+  before_action :find_post, only: [:show, :edit, :update, :vote, :add_image]
   before_action :require_user, except: [:index, :show, :votes]
   before_action :require_creator,  only: [:edit, :update]
 
@@ -29,7 +29,6 @@ class PostsController < ApplicationController
   end
 
   def create
-
     @post = Post.new(post_params)
     @categories = Category.all
     @post.creator = current_user
@@ -39,25 +38,6 @@ class PostsController < ApplicationController
     else
       render 'new'
     end
- 
-  end
-
-  def vote
-    @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
-    @object = @post
-
-      respond_to do |format|
-        format.html do  
-          if @vote.valid?
-            flash[:notice] = "Your vote was counted"
-          else
-            flash[:error] = "You can only vote on this once."
-          end
-          redirect_to :back
-        end  
-        format.js {render 'shared/vote'}
-      end
-    
   end
 
   def edit
@@ -65,6 +45,7 @@ class PostsController < ApplicationController
   end
 
   def update
+
       if @post.update(post_params)
         flash[:notice] = "The post was successfully updated"
         redirect_to post_path(@post)
@@ -73,16 +54,36 @@ class PostsController < ApplicationController
       end
   end
 
-  #def destroy
-  #  @post = Post.find(params[:id])
-  #  @post.destroy
-  #  redirect_to posts_path
-  #end
+  def vote
+  @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
+  @object = @post
+    respond_to do |format|
+      format.html do  
+        if @vote.valid?
+          flash[:notice] = "Your vote was counted"
+        else
+          flash[:error] = "You can only vote on this once."
+        end
+        redirect_to :back
+      end  
+      format.js {render 'shared/vote'}
+    end
+  end
+
+  def post_image
+    @post = Post.new
+
+    respond_to do |format|
+      format.js do
+        @url = params[:url]
+      end
+    end
+  end
 
   private
     
   def post_params  
-    params.require(:post).permit(:title, :description, :url, category_ids: [])
+    params.require(:post).permit(:title, :description, :url, :post_image, category_ids: [])
   end
 
   def find_post

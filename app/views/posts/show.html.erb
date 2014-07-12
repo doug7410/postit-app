@@ -15,7 +15,9 @@
 <%= render 'shared/content_title', title: @post.title %>
 
 <p>Link: <%= link_to @post.url, format_link(@post.url) %> </p>
-
+<p>
+  <%= image_tag @post.post_image,  class: 'img-polaroid' %>
+</p>
 <p>
   <%= @post.description %>
 </p>

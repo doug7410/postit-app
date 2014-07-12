@@ -5,6 +5,8 @@ PostitTemplate::Application.routes.draw do
   get '/login', to: 'sessions#new', as: :sessions_new
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
+  post '/post_image', to: 'posts#post_image'
+
 
   #get '/posts', to: 'posts#index'
   #get '/posts/:id', to: 'posts#show'

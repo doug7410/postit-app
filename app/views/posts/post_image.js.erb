@@ -1,0 +1,30 @@
+
+var images_html = '<ul class="choose_img_thumbs">';
+<% #binding.pry %>
+<% if @post.url_images(@url) != "error"  %>
+  <% @post.url_images(@url).each do |image| %>
+    <% #binding.pry %>
+    images_html += '<li>';
+    images_html += '<%= image_tag image , id: "url_image" %>';
+    images_html += '</li>';
+  <% end %>
+  images_html += '</ul>'
+<% else %>
+  images_html += 'You did not enter a valid URL. Please try again.'
+<% end %>
+
+$("#images_container").html(images_html);
+
+$("#image_choices").slideDown(function(){
+
+  $("#image_choices img").each( function(){
+    $(this).click( function(){
+      $("#post_post_image").val($(this).attr('src'));
+      $("#image_choices").slideUp();
+      $("#post_image").slideDown().html('<img src="' + $(this).attr('src') + '" />');
+    });
+  });
+
+});
+
+
