@@ -1,12 +1,39 @@
 
 <% if !@vote.valid? %>
-  alert('You can only vote on this once');
+  $("#vote_error_<%= @object.id %>").slideDown();
+  $("#vote_error_<%= @object.id %>").click(function(){ 
+    $("#vote_error_<%= @object.id %>").slideUp("fast");
+  });
 <% else %>
+
 <% if @object.respond_to?('slug') %>
   $('#post_<%= @object.slug %>_votes').html('<%= @object.total_votes %>');
 <% else %>
   $('#comment_<%= @object.id %>_votes').html('<%= @object.total_votes %>');
 <% end %>
+  
+  $("#vote_success_<%= @object.id %>").append(
+    "Your <%= current_user.current_vote(@object) ? 'UP' : 'DOWN' %> vote has ben counted!"
+    );
 
-  alert('Your vote has been counted');
+  $("#vote_success_<%= @object.id %>").slideDown();
+  $("#vote_success_<%= @object.id %>").click(function(){ 
+    $("#vote_success_<%= @object.id %>").slideUp("fast");
+  });
+
+  <% if @object.respond_to?('slug') %>
+    $('#post_<%= @object.slug %>_current_vote').html("<%= j render('current_vote', object: @object )%>");
+  <% else %>
+  
+    $('#comment_<%= @object.id %>_current_vote').html("<%= j render('posts/current_vote', object: @object )%>");
+  <% end %>
 <% end %>  
+
+
+
+
+
+
+
+
+

@@ -19,16 +19,22 @@
 </li>
 </ul>
 
+
+<!-- users posts -->
 <% if params[:tab].nil? %>
   <div>
   <% @user.posts.each do |post| %>
     <%= render 'posts/post', post: post %>
   <% end %>
   </div>
+
+
 <% elsif params[:tab] == 'comments' %>
+  
+
   <div>
     
-    <!-- comments -->
+    <!-- user's comments -->
     <%  @user.comments.each do |comment|  %>
     <div class="row">
 
@@ -49,6 +55,15 @@
 
       <!-- comments -->
       <div class="well span6">
+        <div class="alert alert-error vote_error" id="vote_error_<%= comment.id %>">
+        <button type="button" class="close">&times;</button>
+          You can only vote on a comment once.
+        </div>
+
+        <div class="alert alert-success vote_success" id="vote_success_<%= comment.id %>">
+          <button type="button" class="close">&times;</button>
+        </div>
+
         <em>
           "<%= comment.body %>"
           
@@ -61,6 +76,10 @@
           <% end %>
           <small>on <%= format_datetime(comment.created_at) %></small>
         </p>
+
+        <div id="comment_<%= comment.id %>_current_vote">
+          <%= render 'shared/current_vote', object: comment %>
+        </div>
       </div>
     </div>
   <% end %>

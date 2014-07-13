@@ -13,10 +13,21 @@
     <% end %>
   </div>
   <div class="span8 well">
+
+    <div class="alert alert-error vote_error" id="vote_error_<%= post.id %>">
+      <button type="button" class="close">&times;</button>
+      You can only vote on a post once.
+    </div>
+
+    <div class="alert alert-success vote_success" id="vote_success_<%= post.id %>">
+      <button type="button" class="close">&times;</button>
+    </div>
+
     <p>
       <%= render post.categories %>
     </p>
-    <h4><%= link_to post.title, format_link(post.url) %></h4>
+    <h4><%= link_to post.title, post_path(post) %></h4>
+    <%= link_to post.url, format_link(post.url) %>
     <p>
       <%= image_tag post.post_image, class: 'img-polaroid img-small' %>
     </p>
@@ -25,7 +36,12 @@
       <% if post.creator %>
         <span class="quiet">Posted by </span><%= link_to post.creator.username, user_path(post.creator) %>
       <% end %>
-      <small>on <%= format_datetime(post.created_at) %></small>
+      <small>on <%= format_datetime(post.created_at) %></small><br>
+      
+      <div id="post_<%= post.slug %>_current_vote">
+        <%= render 'shared/current_vote', object: post %>
+      </div>
+
     </p>
     <small>
       <span>

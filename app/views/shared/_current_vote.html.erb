@@ -1,0 +1,13 @@
+<% if logged_in? && current_user.has_voted_on_this?(object) %>
+  <% if current_user.current_vote(object) %>
+    <span class="label label-success">
+      <i class='icon-arrow-up'></i> 
+      You gave this <%= vote_for(object) %> an up vote.
+    </span>
+  <% else %> 
+    <span class="label label-important">
+      <i class='icon-arrow-down'></i> 
+      You gave this <%= vote_for(object) %> a down vote.
+    </span>
+  <% end %>
+<% end %>

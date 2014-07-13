@@ -1,5 +1,10 @@
+<%= binding.pry %>
+
 <% if !@vote.valid? %>
-  alert('You can only vote on this once');
+  $("#vote_error_<%= @object.id %>").slideDown();
+  $("#vote_error_<%= @object.id %>").click(function(){ 
+    $("#vote_error_<%= @object.id %>").slideUp();
+  });
 <% else %>
   $('#post_<%= @object.slug %>_votes').html('<%= @object.total_votes %>');
   alert('Your vote has been counted');

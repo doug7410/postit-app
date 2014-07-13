@@ -18,6 +18,7 @@ gem 'voteable_doug'
 gem 'sluggable_doug'
 gem 'metainspector'
 gem 'jquery-turbolinks'
+gem 'twilio-ruby' 
 
 group :doc do
   gem 'sdoc', require: false

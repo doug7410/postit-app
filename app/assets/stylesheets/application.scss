@@ -81,3 +81,7 @@ div.comment_votes {
     margin: 5px;
     max-width: 250px;
 }
+
+.vote_error, .vote_success{
+  display: none;
+}
