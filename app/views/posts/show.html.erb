@@ -73,6 +73,10 @@
     <%= f.text_area :body %> <br>
     <%= f.submit 'Add Comment', class: 'btn btn-primary ' %>
   <% end %>
+<% else %>
+<h5>
+  Please <%= link_to 'Log In', login_path %> or <%= link_to 'Register', register_path %> to leave comments. 
+</h5>
 <% end %>
 
 <!-- list comments -->
