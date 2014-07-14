@@ -37,10 +37,11 @@ class User < ActiveRecord::Base
     
     # set up a client to talk to the Twilio REST API 
     begin
+
       client = Twilio::REST::Client.new account_sid, auth_token      
       client.account.messages.create({
         :from => '+15619238682', 
-        :to => '9546381523', 
+        :to => self.phone, 
         :body => message  
       })
     rescue Twilio::REST::RequestError => e
