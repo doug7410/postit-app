@@ -17,11 +17,16 @@ class Post < ActiveRecord::Base
   sluggable_column :title
 
   def url_images(url)
-    begin
-      page = MetaInspector.new(url) 
-      page.images
-    rescue
-      "error"
+    ext = url.split('.').last
+    if ['jpg','jpeg','png','gif','bmp'].include?(ext)
+      [url]
+    else
+     begin
+       page = MetaInspector.new(url) 
+       page.images
+     rescue
+       "error"
+     end
     end
   end
 
